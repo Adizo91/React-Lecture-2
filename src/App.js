@@ -7,29 +7,39 @@ class App extends Component{
   constructor(){
     super();
     this.state ={
-      name: {f_name:"Adi", l_name:"Zo"},
-      company: "ZIM"
+      monstros: [
+        {
+          name: "Lucius",
+          id: 1
+        },
+        {
+          name: "Bellatrix",
+          id: 2
+        },
+        {
+          name: "Tom",
+          id: 3
+        },
+        {
+          name: "Fenrir",
+          id: 4
+        }        
+      ]
     };
+  }
+  componentDidMount(){
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response)=>response.json())
+    .then((users)=> console.log(users));
   }
   render(){
 return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hi! {this.state.name.f_name} {this.state.name.l_name} works in 
-          {this.state.company}
-        </p>
-       <button onClick={()=>{
-        this.setState(
-          ()=> {
-            return {name: {f_name: "Dida", l_name: "Zor"}}},
-            ()=> {
-              console.log("state changed", this.state)
-            }
-          );
-       }} >Change Name</button>
-      </header>
+      {
+      this.state.monstros.map((monstro)=>{
+        return <div key={monstro.id} align="left"><h1>monster {monstro.id}: {monstro.name}</h1></div>
+      })
+      }
     </div>
   );
   }
